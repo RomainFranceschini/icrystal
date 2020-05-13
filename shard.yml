@@ -1,0 +1,22 @@
+name: icrystal
+version: 0.1.0
+
+authors:
+  - Romain Franceschini <franceschini.romain@gmail.com>
+
+crystal: 0.34.0
+
+license: MIT
+
+dependencies:
+  zeromq:
+    github: crystal-community/zeromq-crystal
+    branch: master
+  icr:
+    github: crystal-community/icr
+    branch: master
+
+targets:
+  icrystal:
+    main: bin/icrystal.cr
+
