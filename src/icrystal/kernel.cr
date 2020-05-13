@@ -251,15 +251,11 @@ module ICrystal
           output = result.error_output || ""
           @session.publish "error", content
         end
-
-        puts result.inspect
       else
         if exception = result.err
           content = error_content(exception)
           content["execution_count"] = @execution_count
           @session.publish "error", content
-        else
-          raise "ohno"
         end
       end
 
