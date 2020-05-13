@@ -1,8 +1,10 @@
 # ICrystal
 
-ICrystal is a Crystal kernel for [Jupyter project](https://jupyter.org/try).
+ICrystal is a crystal kernel for [Jupyter project](https://jupyter.org/try).
 
-It is basically a port from the [IRuby](https://github.com/SciRuby/iruby) kernel.
+Current status: early development stages (the kernel is very minimal). Expect more features in the future.
+
+It is ported from the [IRuby](https://github.com/SciRuby/iruby) kernel.
 
 ![icrystal](https://user-images.githubusercontent.com/470056/81830095-f25cd280-953b-11ea-9922-0f6477399cef.gif)
 
