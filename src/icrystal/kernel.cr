@@ -1,4 +1,5 @@
 require "uuid"
+require "colorize"
 
 Log.setup_from_env
 
@@ -112,8 +113,10 @@ module ICrystal
       build_content(
         status: "error",
         ename: e.class.to_s,
-        evalue: e.message || "",
-        traceback: e.backtrace.map &.as(Any)
+        evalue: e.message,
+        traceback: e.backtrace.map(&.as(Any)).unshift(
+          "#{e.class.to_s.colorize(:red)}: #{e.message}"
+        )
       )
     end
 
@@ -233,23 +236,21 @@ module ICrystal
       )
 
       result = @backend.eval(code, store_history)
-
       output = nil
 
       if result.is_a?(Icr::ExecutionResult)
         if result.success?
-          output = result.output
+          if stdout = result.output
+            @session.publish("stream", build_content(name: "stdout", text: stdout))
+          end
+
           if (value = result.value) && !value.includes?("nil")
-            output = if output.nil? || output.empty?
-                       value
-                     else
-                       "#{output}\n#{value}"
-                     end
+            output = value
           end
         else
-          content["status"] = "error"
-          output = result.error_output || ""
-          @session.publish "error", content
+          if stdout = result.error_output
+            @session.publish "stream", build_content(name: "stderr", text: stdout)
+          end
         end
       else
         if exception = result.err
@@ -261,7 +262,7 @@ module ICrystal
 
       @session.send_reply "execute_reply", content
 
-      unless silent
+      unless output.nil? || silent
         @session.publish("execute_result", build_content(
           data: build_hash("text/plain": output),
           metadata: {} of String => Any,
