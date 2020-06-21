@@ -18,5 +18,5 @@ dependencies:
 
 targets:
   icrystal:
-    main: bin/icrystal.cr
+    main: src/cli.cr
 
