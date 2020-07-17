@@ -41,7 +41,7 @@ shards build
 To register the kernel (ensure jupyter is installed):
 
 ```
-icrystal register
+bin/icrystal register
 ```
 
 Now run jupyter and choose the ICrystal kernel as a backend for your notebook:
