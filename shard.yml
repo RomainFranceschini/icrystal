@@ -4,7 +4,7 @@ version: 0.1.0
 authors:
   - Romain Franceschini <franceschini.romain@gmail.com>
 
-crystal: 0.34.0
+crystal: 1.1.1
 
 license: MIT
 
